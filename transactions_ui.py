@@ -2,7 +2,8 @@
 import streamlit as st
 from context_ui import render_context
 from services import (transaction, money, explain_transaction, execute, answer,
-                      request_replacement, file_dispute, file_disputes, handoff, similar_transactions, send_to_agent, case_for)
+                      request_replacement, file_dispute, file_disputes, handoff, similar_transactions, send_to_agent, case_for,
+                      connect_digibot, send_customer_summary)
 
 
 def navigate(s, view):
@@ -293,19 +294,27 @@ def render_transactions(s, mobile=False):
                 st.success(batch_notice)
         st.button('Back to protection steps', on_click=navigate, args=(s, 'protect'))
 
-    with st.container(border=True):
-        st.markdown('#### Human agent review')
-        st.write('Your transaction and completed actions will be included, so you do not have to start over.')
-        case = case_for(s, t['id'])
-        key = case.get('id', t['id']) if case else t['id']
-        if st.button('Send dispute summary to human agent' if case else 'Send summary to human agent',
-                     disabled=key in s['agent_handoffs'], type='primary'):
-            send_to_agent(s)
+    with st.container(border=True, key='digibot_panel'):
+        st.markdown('#### Connect to Digibot')
+        st.write('Continue with a service assistant that already has this transaction and your completed actions in context.')
+        if s.get('digibot_connected'):
+            st.success('Digibot is connected and ready to help with this transaction.')
+        elif st.button('Connect to Digibot', type='primary', use_container_width=True):
+            connect_digibot(s)
             st.rerun()
-        sent = s['agent_handoffs'].get(key)
-        if sent:
-            st.success('Your dispute summary has been sent to a human agent for review.' if case else 'Your summary has been sent to a human agent for review.')
-            st.caption('Reference · ' + sent['id'] + ' · ' + sent['sent'] + '.')
-            with st.expander('View sent summary'):
-                st.text(sent['summary'])
-            st.download_button('Download sent summary', sent['summary'], file_name='handoff.txt')
+
+    with st.container(border=True, key='customer_summary_panel'):
+        st.markdown('#### Summary of actions')
+        st.write('Send a record of the steps you have taken in this session to your registered contact channels.')
+        summary = s.get('customer_summary')
+        if not summary:
+            st.caption('Delivery channels · Email · Push notification')
+            if st.button('Send summary to customer', use_container_width=True):
+                send_customer_summary(s)
+                st.rerun()
+        else:
+            st.success('Summary sent to your email and push notifications.')
+            st.caption('Sent · ' + summary['sent'] + ' · ' + summary['id'])
+            st.write('**Channels:** ' + ' · '.join(summary['channels']))
+            with st.expander('View summary'):
+                st.write('\n'.join('• ' + item for item in summary['actions']))

@@ -23,6 +23,8 @@ if s.get('history_revision') != 4:
 for key, value in {'transaction_view': 'history', 'recognized': [], 'cases': {}, 'replacement': None}.items():
     s.setdefault(key, value)
 s.setdefault('sample_cases', initial_state().get('sample_cases', {}))
+s.setdefault('digibot_connected', False)
+s.setdefault('customer_summary', None)
 
 
 def ask(prompt):

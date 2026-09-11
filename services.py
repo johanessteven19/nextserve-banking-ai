@@ -11,7 +11,8 @@ def initial_state():
                 messages=[], actions=[], requests=[], selected='TX-1001', journey=False,
                 limit_reviewed=False, fx_reviewed=False, pending=None, handoff=None,
                 transaction_view='history', recognized=[], cases={}, replacement=None,
-                sample_cases=_sample_cases(), data_version=2, agent_handoffs={})
+                sample_cases=_sample_cases(), data_version=2, agent_handoffs={},
+                digibot_connected=False, customer_summary=None)
 
 
 def _timeline(created, pending=False):
@@ -148,6 +149,28 @@ def send_to_agent(s):
             'summary': summary, 'sent': datetime.now(timezone.utc).strftime('%d %b %Y · %H:%M UTC')}
         s['actions'].append(f'{key} summary sent to human agent for review.')
     return s['agent_handoffs'][key]
+
+
+def connect_digibot(s):
+    """Start a Digibot conversation using the current banking context."""
+    if not s.get('digibot_connected'):
+        s['digibot_connected'] = True
+        s['actions'].append('Digibot connected with transaction context.')
+    return 'Digibot is connected with your transaction context.'
+
+
+def send_customer_summary(s):
+    """Create a mock customer notification across email and push channels."""
+    if not s.get('customer_summary'):
+        sent = datetime.now(timezone.utc).strftime('%d %b %Y · %H:%M UTC')
+        actions = list(s.get('actions', []))
+        s['customer_summary'] = {
+            'id': f'NTF-{len(actions)+1:03}',
+            'sent': sent,
+            'channels': ['Email', 'Push notification'],
+            'actions': actions or ['No account actions recorded yet.'],
+        }
+    return s['customer_summary']
 
 
 def transaction(s):

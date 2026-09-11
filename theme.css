@@ -40,7 +40,7 @@ h1,h2,h3,h4 { color:var(--ink); letter-spacing:-.025em; font-weight:700; }
 [data-testid="stSidebar"] [role="radiogroup"] label { border-radius:6px; padding:10px 8px; }
 [data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:#fff0f2; }
 [data-testid="stVerticalBlockBorderWrapper"] { border-radius:10px; background:var(--surface); }
-.hero { padding:22px 28px; border-radius:4px; border-left:5px solid var(--brand-red); background:#242424; color:#fff; margin-bottom:22px; }
+.hero { padding:22px 28px; border-radius:4px; border-left:5px solid #8f061d; background:linear-gradient(110deg,#9e0921 0%,#c8102e 70%,#dc193b 100%); color:#fff; margin-bottom:22px; box-shadow:0 8px 20px #7d00121a; }
 .hero h1 { color:#fff; font-size:clamp(1.8rem,3vw,2.4rem); margin:6px 0; line-height:1.15; }
 .eyebrow { font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; }
 .hero p { color:#e4e4e4; margin:0; line-height:1.5; }
@@ -62,6 +62,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible { outline:2px so
 [data-testid="stChatMessage"] { background:var(--surface-subtle); border-radius:8px; border-left:3px solid var(--line); }
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) { background:#fff5f6; border-left-color:var(--brand-red); }
 [data-testid="stChatInput"] { border-radius:8px; border-color:#c9c9cb; }
+.st-key-digibot_panel, .st-key-customer_summary_panel { border-left:4px solid var(--brand-red); }
+.st-key-digibot_panel h4, .st-key-customer_summary_panel h4 { color:var(--brand-red); }
 @media(max-width:640px) { .block-container { padding:1rem; } .hero { padding:18px; } .bank-card { padding:20px; } }
 
 /* Streamlit's theme picker changes these theme variables at runtime. Keep
