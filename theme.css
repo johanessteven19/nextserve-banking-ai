@@ -80,6 +80,30 @@ html[data-theme="dark"], body[data-theme="dark"], [data-theme="dark"] {
 html[data-theme="dark"] .stApp,
 body[data-theme="dark"] .stApp,
 [data-theme="dark"] .stApp { background:var(--app-bg); color:var(--ink); }
+
+/* Streamlit 1.63 applies the theme inside the embedded app by changing the
+   generated stApp emotion class and color-scheme property, without adding a
+   data-theme attribute. These two stable theme classes keep custom surfaces
+   synchronized with that picker (the variable declarations cascade through
+   the complete app). */
+.stApp.st-emotion-cache-13k62yr {
+  --ink:#f3f4f6;
+  --muted:#b8bec8;
+  --line:#3b414b;
+  --app-bg:#0e1117;
+  --surface:#1f2329;
+  --surface-subtle:#181b20;
+  --control-text:#f3f4f6;
+}
+.stApp.st-emotion-cache-1r4qj8v {
+  --ink:#202124;
+  --muted:#5f6368;
+  --line:#e3e3e5;
+  --app-bg:#f5f5f5;
+  --surface:#fff;
+  --surface-subtle:#f6f6f6;
+  --control-text:#252525;
+}
 html[data-theme="dark"] [data-testid="stSidebar"],
 body[data-theme="dark"] [data-testid="stSidebar"],
 [data-theme="dark"] [data-testid="stSidebar"] { background:var(--surface); }
