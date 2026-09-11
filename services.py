@@ -138,7 +138,7 @@ def similar_transactions(s, tx_id):
 def send_to_agent(s):
     """Queue a local handoff snapshot; never contacts an actual agent."""
     tx_id = s['selected']
-    case = s['cases'].get(tx_id)
+    case = case_for(s, tx_id)
     key = case['id'] if case else tx_id
     if key not in s['agent_handoffs']:
         summary = handoff(s)
