@@ -250,14 +250,25 @@ def render_transactions(s, mobile=False):
                 st.info('No similar transactions were found in your history.')
             available = [(candidate, reasons) for candidate, reasons in matches if not case_for(s, candidate['id'])]
             if available:
-                with st.form('related_disputes_' + t['id']):
-                    st.markdown('**Report multiple payments together**')
-                    st.caption('Tick every recurring or similar payment you also do not recognize. They will receive separate case references under one submission.')
-                    for candidate, reasons in available:
-                        st.checkbox(
+                st.markdown('**Report multiple payments together**')
+                st.caption('Tick every recurring or similar payment you also do not recognize. Review is beside each payment so you can open the details before submitting.')
+            for candidate, reasons in matches:
+                with st.container(border=True):
+                    row = st.columns([4, 1])
+                    candidate_case = case_for(s, candidate['id'])
+                    if candidate_case:
+                        row[0].write('**Disputed · ' + candidate['merchant'] + ' · ' + money(candidate['amount']) + '**')
+                    else:
+                        row[0].checkbox(
                             f"{candidate['merchant']} · {money(candidate['amount'])} · {candidate['date'].split(' · ')[0]}",
                             key='select_related_' + t['id'] + '_' + candidate['id'])
-                        st.caption(candidate['statement_descriptor'] + ' · ' + ' · '.join(reasons))
+                    if row[1].button('Review', key='similar_' + candidate['id'], use_container_width=True):
+                        open_transaction(s, candidate['id'])
+                        st.rerun()
+                    st.caption(candidate['statement_descriptor'] + ' · ' + candidate['date'] + ' · ' + candidate['status'])
+                    st.caption(' · '.join(reasons) + ((' · ' + candidate_case['status']) if candidate_case else ''))
+            if available:
+                with st.form('related_disputes_' + t['id']):
                     batch_reason = st.text_area(
                         'Reason for selected payments',
                         'I do not recognize these related payments and would like them investigated.',
@@ -278,17 +289,6 @@ def render_transactions(s, mobile=False):
                         st.rerun()
                     except ValueError as e:
                         st.error(str(e))
-            for candidate, reasons in matches:
-                with st.container(border=True):
-                    st.markdown(f"**{candidate['merchant']} · {money(candidate['amount'])}**")
-                    st.text(candidate['statement_descriptor'])
-                    st.caption(candidate['date'] + ' · ' + candidate['status'])
-                    st.write(' · '.join(reasons))
-                    candidate_case = case_for(s, candidate['id'])
-                    if candidate_case:
-                        st.caption('Disputed · ' + candidate_case['id'] + ' · ' + candidate_case['status'])
-                    st.button('Review this transaction', key='similar_' + candidate['id'],
-                              on_click=open_transaction, args=(s, candidate['id']))
             batch_notice = s.pop('batch_dispute_notice', None)
             if batch_notice:
                 st.success(batch_notice)

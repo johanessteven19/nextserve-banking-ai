@@ -80,24 +80,20 @@ def render_mobile_journey(s):
                 st.markdown('**' + part['Statement text'] + '**')
                 st.write(part['Plain-language meaning'])
             st.write(t['recognition_tip'])
-        # Cache the same public lookup as desktop without rendering a long wall of results.
-        with st.spinner('Checking merchant information…'):
-            results = merchant_lookup(t['merchant_group'])
-        with st.expander('Merchant information & sources'):
-            profile = MERCHANTS.get(t['merchant_group'])
-            if profile:
-                st.write(profile[0])
-                if profile[1]:
-                    st.write(profile[2])
-                    st.link_button('Merchant billing guidance', profile[1])
-            if results['error']:
-                st.info(results['error'])
-            for row in results['rows']:
-                st.link_button(row['title'], row['url'])
-                st.write(row['snippet'])
-            if results['query']:
-                st.link_button('Open merchant search', 'https://www.bing.com/search?' + urlencode({'q':results['query']}))
-            st.caption('Public sources cannot verify your payment. Only the merchant name is used for search.')
+        with st.expander('Public sources (optional)'):
+            st.warning('External links open a separate website. Check the destination before continuing.')
+            allow_external = st.checkbox('I understand and want to view public sources', key='mobile_external_sources_' + t['id'])
+            if allow_external:
+                with st.spinner('Checking public sources…'):
+                    results = merchant_lookup(t['merchant_group'])
+                if results['error']:
+                    st.info(results['error'])
+                for row in results['rows']:
+                    st.link_button(row['title'], row['url'])
+                    st.write(row['snippet'])
+                if results['query']:
+                    st.link_button('Open public search', 'https://www.bing.com/search?' + urlencode({'q':results['query']}))
+                st.caption('Only the merchant name is used for this search. Public sources cannot confirm who authorized a payment.')
         with st.expander('Payment timing & further help'):
             st.write(t['timing'])
             if t['type'] == 'sgqr':
