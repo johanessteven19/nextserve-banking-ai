@@ -47,7 +47,7 @@ def render_transactions(s, mobile=False):
                 '<strong>Everyday banking</strong><span>Payments, balances and card activity in one place.</span></div>',
                 unsafe_allow_html=True)
         st.title('Transactions')
-        st.write('Select a payment to understand what happened and decide what to do next.')
+        st.write('Tap a payment to see what happened and choose the next step.')
         st.caption('All amounts are shown in Singapore dollars (SGD).')
         if mobile:
             account = st.container()
@@ -125,20 +125,22 @@ def render_transactions(s, mobile=False):
         headline, explanation = explain_transaction(t)
         st.subheader(headline)
         st.write(explanation)
-        st.caption('Based on this transaction’s recorded status: ' + t['status'] + '. This does not confirm who authorized it.')
+        if t['status'] == 'Pending':
+            st.warning('Authorized but pending. The bank cannot stop, recall or reverse it. If unrecognized, lock your card and file a dispute.')
+        st.caption('Recorded status: ' + t['status'] + '. This does not confirm who authorized it.')
         if view == 'learn':
             render_context(s, t)
             st.markdown('#### From statement code to plain language')
             st.text(t['statement_descriptor'])
             st.dataframe(t['descriptor_parts'], hide_index=True, use_container_width=True)
-            st.caption('Reference ' + t['payment_reference'] + ' identifies this payment. Use it when contacting us about the transaction.')
+            st.caption('Reference ' + t['payment_reference'] + ' identifies this payment.')
             st.markdown('#### How to check whether this was yours')
             st.write(t['recognition_tip'])
             st.markdown('#### What else should I know?')
             st.write(t['detail'])
             st.write(t['timing'])
             if t['type'] == 'authorization':
-                st.write('A temporary hold reserves part of your available spending amount. It can become a completed payment or be released. The transaction record cannot tell us why the merchant created it or whether you approved it.')
+                st.write('A temporary hold reserves part of your available spending amount. It may complete or be released.')
             if t['type'] == 'sgqr':
                 # Retrieve approved knowledge afresh on every visit, without repeating chat history.
                 n = len(s['messages'])
@@ -159,9 +161,9 @@ def render_transactions(s, mobile=False):
         return
 
     if view == 'protect':
-        st.write('You don’t recognize this payment. Secure your card, then tell us what needs investigating. Your transaction details stay with you at every step.')
+        st.write('You don’t recognize this payment. Secure your card, then report it for review.')
         if t['type'] == 'sgqr':
-            st.info('This is a SGQR payment. Locking your card does not stop SGQR or account payments; request human support for account protection. You can still report this payment below.')
+            st.info('Locking your card does not stop SGQR or account payments. Report this payment below.')
         st.markdown('#### 1 · Secure your card')
         if s['card']['locked']:
             st.success('Card •••• 4821 is locked. Existing payments are not cancelled.')
@@ -183,7 +185,7 @@ def render_transactions(s, mobile=False):
         st.write('Request a new card if you think your card details have been exposed.')
         st.button('Replace card', on_click=navigate, args=(s, 'replace'), disabled=not s['card']['locked'])
         st.markdown('#### 3 · Report this payment')
-        st.write('File a dispute for review. You can report the payment without requesting a replacement.')
+        st.write('Report this payment for review. A replacement is optional.')
         st.button('File dispute', on_click=navigate, args=(s, 'dispute'), type='primary')
         st.markdown('#### 4 · Keep track')
         st.button('Track case', on_click=navigate, args=(s, 'track'), disabled=case_for(s, t['id']) is None)
@@ -215,8 +217,8 @@ def render_transactions(s, mobile=False):
             st.button('Track case', on_click=navigate, args=(s, 'track'), type='primary')
         else:
             if t['status'] == 'Pending':
-                st.info('This payment is still pending. We can record your report now and review the transaction once it completes. Submitting a report does not guarantee a refund.')
-            st.caption('Your transaction details are already attached. Tell us why you are reporting this payment.')
+                st.info('This payment was authorized but is still pending. The bank cannot stop, recall or reverse it. If unrecognized, lock your card and file a dispute.')
+            st.caption('Your transaction details are attached. Tell us what happened.')
             with st.form('dispute_' + t['id']):
                 reason = st.text_area('Describe the issue', 'I do not recognize this transaction and would like it investigated.')
                 confirmed = st.checkbox('I confirm I do not recognize this transaction and want to submit this report')
@@ -251,7 +253,7 @@ def render_transactions(s, mobile=False):
             st.caption('Keep your case reference for any follow-up enquiries.')
             st.download_button('Download case summary', '\n'.join(f'{k}: {v}' for k, v in case.items()), file_name=case['id'] + '.txt')
             st.markdown('#### Do you recognize these similar transactions?')
-            st.caption('Select one or more related payments to report together, or review them individually. Similarity does not mean a payment is unauthorized.')
+            st.caption('Select related payments to report together, or review them individually.')
             matches = similar_transactions(s, t['id'])
             if not matches:
                 st.info('No similar transactions were found in your history.')

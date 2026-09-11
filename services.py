@@ -62,10 +62,10 @@ def _sample_cases():
 
 def explain_transaction(t):
     explanations = {
-        'authorization': ('This is a temporary hold, not a completed payment.',
-                          'The merchant has reserved this amount on your card. We have not received a final charge yet.'),
-        'sgqr': ('Your payment is still waiting for confirmation.',
-                 'The payment was sent, but the merchant has not confirmed it yet. Check its status before paying again.'),
+        'authorization': ('This payment was authorized and is awaiting completion.',
+                          'The merchant has reserved this amount. A pending authorization cannot be stopped, recalled or reversed by the bank. If you do not recognize it, lock your card and file a dispute.'),
+        'sgqr': ('This payment was authorized and is awaiting confirmation.',
+                 'The payment was sent, but the merchant has not confirmed it. A pending SGQR payment cannot be stopped, recalled or reversed by the bank. If you do not recognize it, lock your card and file a dispute.'),
         'fee': ('This is your yearly card membership fee.',
                 'This charge is for keeping your credit card membership for another year.'),
         'purchase': ('This payment has been completed.',
@@ -193,7 +193,7 @@ def answer(s, prompt):
                  'You can lock your card below, then request a human review. Locking does not cancel an existing transaction or open a dispute.')
         sources = [t['id']]
     elif any(x in q for x in ['human', 'agent', 'escalat']):
-        reply = 'Choose Send summary to human agent below to request a review. Your transaction details and completed actions will be included.'
+        reply = 'Choose Connect to Digibot below to continue with your transaction context.'
     elif any(x in q for x in ['japan', 'travel', 'overseas']):
         s['journey'] = True
         status = 'locked' if s['card']['locked'] else 'active'
@@ -225,7 +225,7 @@ def answer(s, prompt):
     elif any(x in q for x in ['transaction', 'pending', 'hold', 'disappear', 'explain', 'charge']):
         reply = f"**{t['merchant']} · {money(t['amount'])}**\n\nStatus: **{t['status']}**. {t['detail']} {t['timing']}"
         if t['status'] == 'Pending':
-            reply += " Pending status alone does not prove the transaction is legitimate. If you don't recognize it, secure your card and request review."
+            reply += " The bank cannot stop, recall or reverse a pending payment. If you don't recognize it, lock your card and file a dispute."
         sources = [f"{t['id']} · {t['channel']} · {t['date']}"]
     else:
         hits = retrieve(s, prompt)

@@ -79,7 +79,7 @@ if page == 'Banking experience':
             st.markdown('<div class="mobile-home-indicator"></div>', unsafe_allow_html=True)
 
 elif page == 'Service companion':
-    st.markdown('<div class="hero"><div class="eyebrow">Your banking companion</div><h1>Clarity. Then the next step.</h1><p>Understand your payments, manage your card and get help when you need it.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="eyebrow">Your banking companion</div><h1>Clarity, then action.</h1><p>Understand a payment and move forward.</p></div>', unsafe_allow_html=True)
     cols = st.columns(3)
     for col, label, key in zip(cols, ['Explain a payment', 'QR payment help', 'Prepare for Japan'], ['trust', 'agility', 'travel']):
         col.button(label, use_container_width=True, on_click=scenario, args=(key,))
@@ -110,7 +110,7 @@ elif page == 'Service companion':
         with st.container(height=360, border=True):
             if not s['messages']:
                 st.markdown('### What would you like to understand?')
-                st.write('Choose a transaction or ask a question. I can explain your payment, help with the next step, or pass your details to a service specialist.')
+                st.write('Choose a payment or ask a question.')
                 st.caption('Try “Explain this transaction” or “Can I use my card in Japan?”')
             for m in s['messages']:
                 with st.chat_message(m['role']):

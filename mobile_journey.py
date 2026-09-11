@@ -22,7 +22,7 @@ def render_mobile_journey(s):
         matches.sort(key=date_of, reverse=True)
         count = s.get('mobile_visible_count', 8)
         if not matches:
-            st.info('No payments match your search. Try another merchant or filter.')
+            st.info('No payments match your search.')
         last_date = None
         for t in matches[:count]:
             date = t['date'].split(' · ')[0]
@@ -48,6 +48,8 @@ def render_mobile_journey(s):
         headline, detail = explain_transaction(t)
         st.markdown('**' + headline + '**')
         st.write(detail)
+        if t['status'] == 'Pending':
+            st.warning('Authorized but pending. The bank cannot stop, recall or reverse it. If unrecognized, lock your card and file a dispute.')
         st.button('Learn More', type='primary', use_container_width=True, on_click=navigate, args=(s,'learn'))
         st.button('I recognize this', use_container_width=True, on_click=recognize, args=(s,))
         st.button('I don’t recognize this', use_container_width=True, on_click=unrecognized, args=(s,))
@@ -67,7 +69,7 @@ def render_mobile_journey(s):
             st.caption(series[0]['date'].split(' · ')[0] + ' – ' + series[-1]['date'].split(' · ')[0])
         else:
             st.caption(f"{max(0,len(evidence['matches'])-1)} earlier payments to this merchant group. No confirmed subscription pattern.")
-        st.caption('A pattern does not confirm who authorized a payment.')
+        st.caption('A pattern does not confirm authorization.')
         st.button('I recognize this', type='primary', use_container_width=True, on_click=recognize, args=(s,))
         st.button('I don’t recognize this', use_container_width=True, on_click=unrecognized, args=(s,))
         with st.expander('Previous payments'):
@@ -104,11 +106,11 @@ def render_mobile_journey(s):
 
     st.markdown('#### Secure your card')
     if t['type'] == 'sgqr':
-        st.info('Card locking does not stop SGQR payments. Contact a specialist for account protection.')
+            st.info('Card locking does not stop SGQR payments.')
     if s['card']['locked']:
         st.success('Card •••• 4821 is locked')
     else:
-        st.write('Block new card purchases while you review this payment.')
+        st.write('Block new card purchases while you review it.')
         if not s['pending'] and st.button('Lock card', type='primary', use_container_width=True):
             s['pending'] = ('lock', None)
             st.rerun()
