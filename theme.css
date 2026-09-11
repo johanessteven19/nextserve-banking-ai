@@ -64,6 +64,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible { outline:2px so
 [data-testid="stChatInput"] { border-radius:8px; border-color:#c9c9cb; }
 .st-key-digibot_panel, .st-key-customer_summary_panel { border-left:4px solid var(--brand-red); }
 .st-key-digibot_panel h4, .st-key-customer_summary_panel h4 { color:var(--brand-red); }
+.dbs-home-utility { display:flex; align-items:center; gap:14px; min-height:44px; padding:0 18px; background:#202124; color:#fff; border-radius:6px 6px 0 0; }
+.dbs-home-mark { display:inline-flex; align-items:center; min-height:44px; padding:0 12px; margin-left:-18px; background:var(--brand-red); color:#fff; font-size:18px; font-weight:800; letter-spacing:-.04em; }
+.dbs-home-product { font-size:18px; font-weight:600; letter-spacing:-.02em; }
+.dbs-home-utility-label { margin-left:auto; font-size:11px; font-weight:700; letter-spacing:.12em; color:#e4e4e4; }
+.dbs-home-banner { display:flex; flex-direction:column; gap:5px; padding:18px 22px; margin-bottom:18px; background:linear-gradient(110deg,#9e0921 0%,#c8102e 72%,#dc193b 100%); color:#fff; border-radius:0 0 8px 8px; box-shadow:0 8px 20px #7d00121a; }
+.dbs-home-eyebrow { font-size:11px; font-weight:700; letter-spacing:.14em; }
+.dbs-home-banner strong { font-size:clamp(1.45rem,2.5vw,2rem); line-height:1.1; letter-spacing:-.025em; }
+.dbs-home-banner span:last-child { font-size:14px; color:#ffe7eb; }
 @media(max-width:640px) { .block-container { padding:1rem; } .hero { padding:18px; } .bank-card { padding:20px; } }
 
 /* Streamlit's theme picker changes these theme variables at runtime. Keep

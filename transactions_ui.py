@@ -38,7 +38,14 @@ def render_transactions(s, mobile=False):
             return
     view = s['transaction_view']
     if view == 'history':
-        st.caption('DBS / EVERYDAY BANKING')
+        if not mobile:
+            st.markdown(
+                '<div class="dbs-home-utility"><span class="dbs-home-mark">DBS</span>'
+                '<span class="dbs-home-product">digibank</span>'
+                '<span class="dbs-home-utility-label">EVERYDAY BANKING</span></div>'
+                '<div class="dbs-home-banner"><span class="dbs-home-eyebrow">YOUR MONEY, AT A GLANCE</span>'
+                '<strong>Everyday banking</strong><span>Payments, balances and card activity in one place.</span></div>',
+                unsafe_allow_html=True)
         st.title('Transactions')
         st.write('Select a payment to understand what happened and decide what to do next.')
         st.caption('All amounts are shown in Singapore dollars (SGD).')
