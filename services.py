@@ -63,9 +63,9 @@ def _sample_cases():
 def explain_transaction(t):
     explanations = {
         'authorization': ('This payment was authorized and is awaiting completion.',
-                          'The merchant has reserved this amount. A pending authorization cannot be stopped, recalled or reversed by the bank. If you do not recognize it, lock your card and file a dispute.'),
+                          'The merchant has reserved this amount. The final charge has not arrived yet.'),
         'sgqr': ('This payment was authorized and is awaiting confirmation.',
-                 'The payment was sent, but the merchant has not confirmed it. A pending SGQR payment cannot be stopped, recalled or reversed by the bank. If you do not recognize it, lock your card and file a dispute.'),
+                 'The payment was sent, but merchant confirmation is pending.'),
         'fee': ('This is your yearly card membership fee.',
                 'This charge is for keeping your credit card membership for another year.'),
         'purchase': ('This payment has been completed.',
