@@ -2,7 +2,7 @@
 import streamlit as st
 from context_ui import render_context
 from services import (transaction, money, explain_transaction, execute, answer,
-                      request_replacement, file_dispute, file_disputes, handoff, similar_transactions, send_to_agent)
+                      request_replacement, file_dispute, file_disputes, handoff, similar_transactions, send_to_agent, case_for)
 
 
 def navigate(s, view):
@@ -56,8 +56,9 @@ def render_transactions(s, mobile=False):
                     info.caption('REF ' + t['payment_reference'])
                     amount.markdown('**' + money(t['amount']) + '**')
                     amount.caption(t['status'])
-                    if t['id'] in s['cases']:
-                        st.caption('Case ' + s['cases'][t['id']]['id'] + ' · ' + s['cases'][t['id']]['status'])
+                    case = case_for(s, t['id'])
+                    if case:
+                        st.caption('Disputed · ' + case['id'] + ' · ' + case['status'])
                     elif t['id'] in s['recognized']:
                         st.caption('Recognized by you')
                     st.button('View transaction', key='view_' + t['id'], on_click=open_transaction,
@@ -71,12 +72,15 @@ def render_transactions(s, mobile=False):
     st.button('← All transactions', on_click=navigate, args=(s, 'history'))
     if view == 'cases':
         st.title('Your cases')
-        if not s['cases']:
+        all_cases = dict(s.get('sample_cases', {}))
+        all_cases.update(s.get('cases', {}))
+        if not all_cases:
             st.info('You have no submitted cases. Start by opening a transaction.')
-        for tx_id, case in s['cases'].items():
+        for tx_id, case in all_cases.items():
             with st.container(border=True):
                 st.markdown(f"**{case['id']} · {case['merchant']}**")
-                st.write(case['status'])
+                st.write('Disputed · ' + case['status'])
+                st.caption('Last update · ' + case.get('updated', case['created']))
                 if st.button('View case', key='case_' + tx_id):
                     s['selected'] = tx_id
                     navigate(s, 'track')
@@ -97,10 +101,13 @@ def render_transactions(s, mobile=False):
         if not mobile:
             st.caption('As shown on your statement')
             st.text(t['statement_descriptor'])
+        case = case_for(s, t['id'])
+        if case:
+            st.warning('Disputed · ' + case['id'] + ' · ' + case['status'])
 
     if view == 'recognized':
         st.success('Thanks for confirming. No further action is needed for this transaction.')
-        if t['id'] in s['cases'] or s['card']['locked']:
+        if case_for(s, t['id']) or s['card']['locked']:
             st.info('Any existing case or card lock remains in place. Recognizing a transaction does not cancel an existing request or unlock the card.')
         st.button('Back to transactions', type='primary', on_click=navigate, args=(s, 'history'))
         st.button('Review transaction again', on_click=navigate, args=(s, 'details'))
@@ -171,7 +178,7 @@ def render_transactions(s, mobile=False):
         st.write('File a dispute for review. You can report the payment without requesting a replacement.')
         st.button('File dispute', on_click=navigate, args=(s, 'dispute'), type='primary')
         st.markdown('#### 4 · Keep track')
-        st.button('Track case', on_click=navigate, args=(s, 'track'), disabled=t['id'] not in s['cases'])
+        st.button('Track case', on_click=navigate, args=(s, 'track'), disabled=case_for(s, t['id']) is None)
         st.button('Back to details', on_click=navigate, args=(s, 'details'))
 
     elif view == 'replace':
@@ -195,7 +202,7 @@ def render_transactions(s, mobile=False):
         st.button('Back to protection steps', on_click=navigate, args=(s, 'protect'))
 
     elif view == 'dispute':
-        if t['id'] in s['cases']:
+        if case_for(s, t['id']):
             st.info('You have already reported this transaction. Track the existing case below.')
             st.button('Track case', on_click=navigate, args=(s, 'track'), type='primary')
         else:
@@ -215,18 +222,20 @@ def render_transactions(s, mobile=False):
         st.button('Back to protection steps', on_click=navigate, args=(s, 'protect'))
 
     elif view == 'track':
-        case = s['cases'].get(t['id'])
+        case = case_for(s, t['id'])
         if not case:
             st.info('No case has been submitted for this transaction yet.')
             st.button('File dispute', on_click=navigate, args=(s, 'dispute'))
         else:
             st.success('Report received · ' + case['id'])
             st.markdown('**Current status: ' + case['status'] + '**')
-            st.caption('Submitted ' + case['created'])
+            st.caption('Submitted ' + case['created'] + ' · Last update ' + case.get('updated', case['created']))
             st.write('**Your report:** ' + case['reason'])
-            st.write('✓ Report submitted')
-            st.write('◷ ' + ('Waiting for the pending payment to complete' if t['status'] == 'Pending' else 'Waiting for a specialist to review'))
-            st.write('○ Review outcome — no decision or refund yet')
+            st.markdown('#### Case timeline')
+            for milestone in case.get('timeline', []):
+                marker = '✓' if milestone['status'] == 'Complete' else ('◷' if milestone['status'] == 'In progress' else '○')
+                st.write(f"{marker} **{milestone['label']}** · {milestone['status']}")
+                st.caption(milestone['timestamp'])
             st.divider()
             st.write('**Card:** ' + ('Locked' if s['card']['locked'] else 'Active'))
             if s['replacement']:
@@ -238,7 +247,7 @@ def render_transactions(s, mobile=False):
             matches = similar_transactions(s, t['id'])
             if not matches:
                 st.info('No similar transactions were found in your history.')
-            available = [(candidate, reasons) for candidate, reasons in matches if candidate['id'] not in s['cases']]
+            available = [(candidate, reasons) for candidate, reasons in matches if not case_for(s, candidate['id'])]
             if available:
                 with st.form('related_disputes_' + t['id']):
                     st.markdown('**Report multiple payments together**')
@@ -274,8 +283,9 @@ def render_transactions(s, mobile=False):
                     st.text(candidate['statement_descriptor'])
                     st.caption(candidate['date'] + ' · ' + candidate['status'])
                     st.write(' · '.join(reasons))
-                    if candidate['id'] in s['cases']:
-                        st.caption('Already reported · ' + s['cases'][candidate['id']]['id'])
+                    candidate_case = case_for(s, candidate['id'])
+                    if candidate_case:
+                        st.caption('Disputed · ' + candidate_case['id'] + ' · ' + candidate_case['status'])
                     st.button('Review this transaction', key='similar_' + candidate['id'],
                               on_click=open_transaction, args=(s, candidate['id']))
             batch_notice = s.pop('batch_dispute_notice', None)
@@ -286,14 +296,15 @@ def render_transactions(s, mobile=False):
     with st.container(border=True):
         st.markdown('#### Human agent review')
         st.write('Your transaction and completed actions will be included, so you do not have to start over.')
-        key = s['cases'].get(t['id'], {}).get('id', t['id'])
-        if st.button('Send dispute summary to human agent' if t['id'] in s['cases'] else 'Send summary to human agent',
+        case = case_for(s, t['id'])
+        key = case.get('id', t['id']) if case else t['id']
+        if st.button('Send dispute summary to human agent' if case else 'Send summary to human agent',
                      disabled=key in s['agent_handoffs'], type='primary'):
             send_to_agent(s)
             st.rerun()
         sent = s['agent_handoffs'].get(key)
         if sent:
-            st.success('Your dispute summary has been sent to a human agent for review.' if t['id'] in s['cases'] else 'Your summary has been sent to a human agent for review.')
+            st.success('Your dispute summary has been sent to a human agent for review.' if case else 'Your summary has been sent to a human agent for review.')
             st.caption('Reference · ' + sent['id'] + ' · ' + sent['sent'] + '.')
             with st.expander('View sent summary'):
                 st.text(sent['summary'])

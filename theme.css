@@ -77,18 +77,6 @@ html[data-theme="dark"], body[data-theme="dark"], [data-theme="dark"] {
   --control-text:#f3f4f6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink:#f3f4f6;
-    --muted:#b8bec8;
-    --line:#3b414b;
-    --app-bg:#111315;
-    --surface:#1f2329;
-    --surface-subtle:#181b20;
-    --control-text:#f3f4f6;
-  }
-}
-
 html[data-theme="dark"] .stApp,
 body[data-theme="dark"] .stApp,
 [data-theme="dark"] .stApp { background:var(--app-bg); color:var(--ink); }

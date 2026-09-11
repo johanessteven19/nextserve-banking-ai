@@ -1,7 +1,7 @@
 """Deterministic, grounded demo orchestration. No model or banking API calls."""
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -11,7 +11,52 @@ def initial_state():
                 messages=[], actions=[], requests=[], selected='TX-1001', journey=False,
                 limit_reviewed=False, fx_reviewed=False, pending=None, handoff=None,
                 transaction_view='history', recognized=[], cases={}, replacement=None,
-                data_version=2, agent_handoffs={})
+                sample_cases=_sample_cases(), data_version=2, agent_handoffs={})
+
+
+def _timeline(created, pending=False):
+    """Return a readable case timeline with a timestamp on every milestone."""
+    base = datetime.strptime(created, '%d %b %Y · %H:%M UTC').replace(tzinfo=timezone.utc)
+    if pending:
+        milestones = [
+            ('Report submitted', 'Complete', base),
+            ('Payment completion check', 'In progress', base + timedelta(minutes=2)),
+            ('Specialist review', 'Queued next', base + timedelta(minutes=5)),
+            ('Review outcome', 'Decision pending', base + timedelta(minutes=8)),
+        ]
+    else:
+        milestones = [
+            ('Report submitted', 'Complete', base),
+            ('Payment details captured', 'Complete', base + timedelta(minutes=2)),
+            ('Specialist review', 'In progress', base + timedelta(minutes=5)),
+            ('Review outcome', 'Decision pending', base + timedelta(minutes=8)),
+        ]
+    return [{'label': label, 'status': status,
+             'timestamp': stamp.strftime('%d %b %Y · %H:%M UTC')}
+            for label, status, stamp in milestones]
+
+
+def _sample_cases():
+    """Curated case history shown in the app so the tracking view is useful on first visit."""
+    samples = [
+        ('TX-1008', 'CASE-024', '09 Sep 2026 · 14:20 UTC', 'Under specialist review'),
+        ('TX-1014', 'CASE-021', '08 Sep 2026 · 10:05 UTC', 'Awaiting review'),
+        ('TX-1016', 'CASE-019', '06 Sep 2026 · 16:45 UTC', 'Payment completion check'),
+    ]
+    cases = {}
+    data = json.loads(Path(__file__).with_name('data.json').read_text(encoding='utf-8'))
+    for tx_id, case_id, created, status in samples:
+        t = next(t for t in data['transactions'] if t['id'] == tx_id)
+        cases[tx_id] = {
+            'id': case_id, 'transaction': tx_id, 'merchant': t['merchant'],
+            'statement_descriptor': t['statement_descriptor'],
+            'payment_reference': t['payment_reference'], 'amount': t['amount'],
+            'currency': 'SGD',
+            'reason': 'I do not recognize this payment and would like it investigated.',
+            'status': status, 'created': created, 'updated': created,
+            'timeline': _timeline(created, pending=t['status'] == 'Pending'),
+        }
+    return cases
 
 
 def explain_transaction(t):
@@ -42,14 +87,21 @@ def file_dispute(s, transaction_id, reason, confirmed):
     if not t or not confirmed or not reason.strip():
         raise ValueError('Select a transaction, describe the issue and confirm your statement.')
     if transaction_id not in s['cases']:
+        created = datetime.now(timezone.utc).strftime('%d %b %Y · %H:%M UTC')
         case = {'id': f'CASE-{len(s["cases"])+1:03}', 'transaction': transaction_id,
                 'merchant': t['merchant'], 'statement_descriptor': t['statement_descriptor'],
                 'payment_reference': t['payment_reference'], 'amount': t['amount'], 'currency': 'SGD', 'reason': reason.strip(),
                 'status': 'Awaiting transaction completion' if t['status'] == 'Pending' else 'Awaiting review',
-                'created': datetime.now(timezone.utc).strftime('%d %b %Y · %H:%M UTC')}
+                'created': created, 'updated': created,
+                'timeline': _timeline(created, pending=t['status'] == 'Pending')}
         s['cases'][transaction_id] = case
         s['actions'].append(f"{case['id']} submitted for {transaction_id}: {case['status']}. No refund issued.")
     return s['cases'][transaction_id]
+
+
+def case_for(s, transaction_id):
+    """Return a submitted case, or a pre-populated case history item."""
+    return s.get('cases', {}).get(transaction_id) or s.get('sample_cases', {}).get(transaction_id)
 
 
 def file_disputes(s, transaction_ids, reason, confirmed):
