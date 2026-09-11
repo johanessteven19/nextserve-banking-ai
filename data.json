@@ -1,0 +1,697 @@
+{
+  "transactions": [
+    {
+      "id": "TX-1001",
+      "merchant": "GOOGLE *TEMP HOLD",
+      "amount": 125.0,
+      "date": "10 Sep 2026 · 09:42",
+      "status": "Pending",
+      "type": "authorization",
+      "channel": "Online card",
+      "detail": "Temporary authorization recorded by the merchant. Final settlement has not been received.",
+      "timing": "most holds release within 7 calendar days, but timing is not guaranteed.",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "statement_descriptor": "GOOGLE *TEMP HLD G.CO/HELPPAY# US",
+      "friendly_name": "Google · temporary card hold",
+      "payment_reference": "PAY-1001-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "TEMP HLD",
+          "Plain-language meaning": "Temporary reservation of funds; not a completed purchase."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label. This does not establish where you were."
+        }
+      ],
+      "recognition_tip": "Check recent Google activity and receipts. The record does not identify a specific item or prove who authorized it."
+    },
+    {
+      "id": "TX-1002",
+      "merchant": "Ya Kun Kaya Toast · SGQR",
+      "amount": 6.8,
+      "date": "10 Sep 2026 · 08:15",
+      "status": "Pending",
+      "type": "sgqr",
+      "channel": "SGQR",
+      "detail": "Payment submitted; merchant confirmation has not been received.",
+      "timing": "Check payment status before trying again to avoid a duplicate payment.",
+      "currency": "SGD",
+      "merchant_group": "kopi",
+      "statement_descriptor": "SGQR*YA KUN 009184 SG",
+      "friendly_name": "Ya Kun Kaya Toast · QR payment",
+      "payment_reference": "PAY-1002-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "SGQR*YA KUN",
+          "Plain-language meaning": "QR payment with an abbreviated merchant name."
+        },
+        {
+          "Statement text": "009184 SG",
+          "Plain-language meaning": "Merchant reference; Singapore label."
+        }
+      ],
+      "recognition_tip": "Match the time and amount to your café receipt before paying again."
+    },
+    {
+      "id": "TX-1003",
+      "merchant": "Annual card membership fee",
+      "amount": 45.0,
+      "date": "09 Sep 2026 · 00:01",
+      "status": "Posted",
+      "type": "fee",
+      "channel": "Credit card",
+      "detail": "Annual membership fee for the credit card ending 4821.",
+      "timing": "A reversal request can be submitted for review. Approval is not guaranteed.",
+      "currency": "SGD",
+      "merchant_group": "fee",
+      "statement_descriptor": "CC ANNUAL FEE 4821",
+      "friendly_name": "Annual card membership fee",
+      "payment_reference": "PAY-1003-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "CC ANNUAL FEE",
+          "Plain-language meaning": "Yearly credit-card membership charge."
+        },
+        {
+          "Statement text": "4821",
+          "Plain-language meaning": "Last four digits of the associated card."
+        }
+      ],
+      "recognition_tip": "This is a bank fee rather than a store purchase. A fee reversal can be requested separately."
+    },
+    {
+      "id": "TX-1004",
+      "merchant": "Cold Storage",
+      "amount": 32.85,
+      "date": "08 Sep 2026 · 18:30",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "In-store card",
+      "detail": "Completed purchase at Cold Storage, Singapore, using the card ending 4821.",
+      "timing": "The payment has settled.",
+      "currency": "SGD",
+      "merchant_group": "fresh",
+      "statement_descriptor": "POS*COLD STORAGE 018 SG",
+      "friendly_name": "Cold Storage · store payment",
+      "payment_reference": "PAY-1004-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "POS*COLD STORAGE",
+          "Plain-language meaning": "In-store purchase; the merchant name is shortened."
+        },
+        {
+          "Statement text": "018 SG",
+          "Plain-language meaning": "Branch 018; Singapore label."
+        }
+      ],
+      "recognition_tip": "Check your grocery receipt for the same date and amount. The reference is not an itemized receipt."
+    },
+    {
+      "id": "TX-1005",
+      "merchant": "GOOGLE *SERVICES",
+      "amount": 124.99,
+      "date": "10 Sep 2026 · 09:39",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *SERVICES, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *SVCS G.CO/HELPPAY# US",
+      "friendly_name": "Google · online payment",
+      "payment_reference": "PAY-1005-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *SVCS",
+          "Plain-language meaning": "Google services merchant descriptor."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google purchase history. The statement alone cannot identify the service or item purchased."
+    },
+    {
+      "id": "TX-1006",
+      "merchant": "GOOGLE *TEMP HOLD",
+      "amount": 125.0,
+      "date": "09 Sep 2026 · 21:14",
+      "status": "Pending",
+      "type": "authorization",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Temporary card reservation; final payment has not arrived.",
+      "timing": "most holds release within 7 calendar days; timing is not guaranteed.",
+      "statement_descriptor": "GOOGLE *TEMP HLD G.CO/HELPPAY# US",
+      "friendly_name": "Google · temporary card hold",
+      "payment_reference": "PAY-1006-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "TEMP HLD",
+          "Plain-language meaning": "Temporary reservation of funds; not a completed purchase."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "A matching amount does not establish a duplicate. Compare the separate payment references and merchant receipts."
+    },
+    {
+      "id": "TX-1007",
+      "merchant": "GOOGLE *PLAY",
+      "amount": 12.99,
+      "date": "08 Sep 2026 · 16:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *PLAY, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *PLAY G.CO/HELPPAY# US",
+      "friendly_name": "Google Play · online payment",
+      "payment_reference": "PAY-1007-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *PLAY",
+          "Plain-language meaning": "Google Play merchant label in the transaction record."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google Play purchase history. The statement does not reveal which app, subscription or account was involved."
+    },
+    {
+      "id": "TX-1008",
+      "merchant": "Grab Ride",
+      "amount": 18.4,
+      "date": "10 Sep 2026 · 07:50",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "grab",
+      "detail": "Completed payment recorded for Grab Ride, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GRAB* A-7K2M9 SG",
+      "friendly_name": "Grab · app payment",
+      "payment_reference": "PAY-1008-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "GRAB*",
+          "Plain-language meaning": "Grab merchant descriptor."
+        },
+        {
+          "Statement text": "A-7K2M9 SG",
+          "Plain-language meaning": "Booking reference and Singapore label."
+        }
+      ],
+      "recognition_tip": "Compare this reference, amount and time with your Grab activity. The descriptor alone does not prove it was a ride."
+    },
+    {
+      "id": "TX-1009",
+      "merchant": "FairPrice Finest",
+      "amount": 76.25,
+      "date": "09 Sep 2026 · 19:05",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "In-store card",
+      "currency": "SGD",
+      "merchant_group": "fairprice",
+      "detail": "Completed payment recorded for FairPrice Finest, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NTUC FP FINEST 0352 SG",
+      "friendly_name": "FairPrice Finest · store payment",
+      "payment_reference": "PAY-1009-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "NTUC FP FINEST",
+          "Plain-language meaning": "Abbreviated FairPrice Finest merchant name."
+        },
+        {
+          "Statement text": "0352 SG",
+          "Plain-language meaning": "Outlet reference and Singapore label."
+        }
+      ],
+      "recognition_tip": "Check your grocery receipt. The reference identifies this outlet, not the individual products purchased."
+    },
+    {
+      "id": "TX-1010",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 Sep 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-1010-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1011",
+      "merchant": "Grab Ride",
+      "amount": 17.9,
+      "date": "08 Sep 2026 · 08:10",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "grab",
+      "detail": "Completed payment recorded for Grab Ride, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GRAB* A-8P4N1 SG",
+      "friendly_name": "Grab · app payment",
+      "payment_reference": "PAY-1011-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "GRAB*",
+          "Plain-language meaning": "Grab merchant descriptor."
+        },
+        {
+          "Statement text": "A-8P4N1 SG",
+          "Plain-language meaning": "Booking reference and Singapore label."
+        }
+      ],
+      "recognition_tip": "Compare with your Grab activity. Separate booking references can indicate separate payments; similarity alone is not a duplicate."
+    },
+    {
+      "id": "TX-1012",
+      "merchant": "Uniqlo Orchard",
+      "amount": 89.9,
+      "date": "07 Sep 2026 · 15:12",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "In-store card",
+      "currency": "SGD",
+      "merchant_group": "uniqlo",
+      "detail": "Completed payment recorded for Uniqlo Orchard, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "UNIQLO ORCH 0007 SG",
+      "friendly_name": "Uniqlo Orchard · store payment",
+      "payment_reference": "PAY-1012-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "UNIQLO ORCH",
+          "Plain-language meaning": "Uniqlo merchant name with Orchard abbreviated."
+        },
+        {
+          "Statement text": "0007 SG",
+          "Plain-language meaning": "Outlet reference and Singapore label."
+        }
+      ],
+      "recognition_tip": "Check the receipt for the amount and date. The statement cannot show the items you bought."
+    },
+    {
+      "id": "TX-1013",
+      "merchant": "Cold Storage",
+      "amount": 33.2,
+      "date": "07 Sep 2026 · 18:15",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "In-store card",
+      "currency": "SGD",
+      "merchant_group": "fresh",
+      "detail": "Completed payment recorded for Cold Storage, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "POS*COLD STORAGE 018 SG",
+      "friendly_name": "Cold Storage · store payment",
+      "payment_reference": "PAY-1013-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "POS*COLD STORAGE",
+          "Plain-language meaning": "In-store purchase; the merchant name is shortened."
+        },
+        {
+          "Statement text": "018 SG",
+          "Plain-language meaning": "Branch 018; Singapore label."
+        }
+      ],
+      "recognition_tip": "Compare with your grocery receipt. A similar amount on another day can be a separate purchase."
+    },
+    {
+      "id": "TX-1014",
+      "merchant": "Amazon Marketplace",
+      "amount": 126.5,
+      "date": "09 Sep 2026 · 12:40",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "amazon",
+      "detail": "Completed payment recorded for Amazon Marketplace, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "AMZN MKTP SG*7H2K9",
+      "friendly_name": "Amazon Marketplace · online payment",
+      "payment_reference": "PAY-1014-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "AMZN MKTP",
+          "Plain-language meaning": "Abbreviated Amazon Marketplace merchant name."
+        },
+        {
+          "Statement text": "SG*7H2K9",
+          "Plain-language meaning": "Singapore label and a merchant payment reference."
+        }
+      ],
+      "recognition_tip": "Compare with Amazon orders and shipment charges. The descriptor does not identify the item or seller."
+    },
+    {
+      "id": "TX-1015",
+      "merchant": "Singapore Airlines",
+      "amount": 845.6,
+      "date": "06 Sep 2026 · 11:30",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "sia",
+      "detail": "Completed payment recorded for Singapore Airlines, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "SINGAPORE AIR 618-4821042 SG",
+      "friendly_name": "Singapore Airlines · online payment",
+      "payment_reference": "PAY-1015-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "SINGAPORE AIR",
+          "Plain-language meaning": "Abbreviated Singapore Airlines merchant name."
+        },
+        {
+          "Statement text": "618-4821042 SG",
+          "Plain-language meaning": "Ticket reference and Singapore label."
+        }
+      ],
+      "recognition_tip": "Compare with your booking confirmation. This record does not reveal the passenger, route or travel dates."
+    },
+    {
+      "id": "TX-1016",
+      "merchant": "Ya Kun Kaya Toast · SGQR",
+      "amount": 7.2,
+      "date": "09 Sep 2026 · 08:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "SGQR",
+      "currency": "SGD",
+      "merchant_group": "kopi",
+      "detail": "Completed payment recorded for Ya Kun Kaya Toast · SGQR, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "SGQR*YA KUN 009183 SG",
+      "friendly_name": "Ya Kun Kaya Toast · QR payment",
+      "payment_reference": "PAY-1016-4821",
+      "descriptor_parts": [
+        {
+          "Statement text": "SGQR*YA KUN",
+          "Plain-language meaning": "QR payment with an abbreviated merchant name."
+        },
+        {
+          "Statement text": "009183 SG",
+          "Plain-language meaning": "Merchant reference; Singapore label."
+        }
+      ],
+      "recognition_tip": "Match it to your café receipt. A different reference is not proof of a duplicate payment."
+    },
+    {
+      "id": "TX-1010-APR",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 Apr 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-TX-1010-APR",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1010-MAY",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 May 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-TX-1010-MAY",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1010-JUN",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 Jun 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-TX-1010-JUN",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1010-JUL",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 Jul 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-TX-1010-JUL",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1010-AUG",
+      "merchant": "Netflix",
+      "amount": 19.98,
+      "date": "09 Aug 2026 · 08:00",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "netflix",
+      "detail": "Completed payment recorded for Netflix, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "NETFLIX.COM SG",
+      "friendly_name": "Netflix · online payment",
+      "payment_reference": "PAY-TX-1010-AUG",
+      "descriptor_parts": [
+        {
+          "Statement text": "NETFLIX.COM",
+          "Plain-language meaning": "Netflix merchant descriptor."
+        },
+        {
+          "Statement text": "SG",
+          "Plain-language meaning": "Singapore label in the merchant record."
+        }
+      ],
+      "recognition_tip": "Check your Netflix billing history. The amount alone does not establish the plan, billing period or account owner."
+    },
+    {
+      "id": "TX-1007-MAY",
+      "merchant": "GOOGLE *PLAY",
+      "amount": 12.99,
+      "date": "08 May 2026 · 16:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *PLAY, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *PLAY G.CO/HELPPAY# US",
+      "friendly_name": "Google Play · online payment",
+      "payment_reference": "PAY-TX-1007-MAY",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *PLAY",
+          "Plain-language meaning": "Google Play merchant label in the transaction record."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google Play purchase history. The statement does not reveal which app, subscription or account was involved."
+    },
+    {
+      "id": "TX-1007-JUN",
+      "merchant": "GOOGLE *PLAY",
+      "amount": 12.99,
+      "date": "08 Jun 2026 · 16:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *PLAY, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *PLAY G.CO/HELPPAY# US",
+      "friendly_name": "Google Play · online payment",
+      "payment_reference": "PAY-TX-1007-JUN",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *PLAY",
+          "Plain-language meaning": "Google Play merchant label in the transaction record."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google Play purchase history. The statement does not reveal which app, subscription or account was involved."
+    },
+    {
+      "id": "TX-1007-JUL",
+      "merchant": "GOOGLE *PLAY",
+      "amount": 12.99,
+      "date": "08 Jul 2026 · 16:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *PLAY, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *PLAY G.CO/HELPPAY# US",
+      "friendly_name": "Google Play · online payment",
+      "payment_reference": "PAY-TX-1007-JUL",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *PLAY",
+          "Plain-language meaning": "Google Play merchant label in the transaction record."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google Play purchase history. The statement does not reveal which app, subscription or account was involved."
+    },
+    {
+      "id": "TX-1007-AUG",
+      "merchant": "GOOGLE *PLAY",
+      "amount": 12.99,
+      "date": "08 Aug 2026 · 16:20",
+      "status": "Posted",
+      "type": "purchase",
+      "channel": "Online card",
+      "currency": "SGD",
+      "merchant_group": "google",
+      "detail": "Completed payment recorded for GOOGLE *PLAY, shown in Singapore dollars.",
+      "timing": "The payment has completed.",
+      "statement_descriptor": "GOOGLE *PLAY G.CO/HELPPAY# US",
+      "friendly_name": "Google Play · online payment",
+      "payment_reference": "PAY-TX-1007-AUG",
+      "descriptor_parts": [
+        {
+          "Statement text": "GOOGLE *PLAY",
+          "Plain-language meaning": "Google Play merchant label in the transaction record."
+        },
+        {
+          "Statement text": "G.CO/HELPPAY# US",
+          "Plain-language meaning": "Merchant support descriptor and US country label."
+        }
+      ],
+      "recognition_tip": "Check Google Play purchase history. The statement does not reveal which app, subscription or account was involved."
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "KB-001",
+      "title": "Japan travel & FX guide",
+      "keywords": "japan,travel,fx,exchange,currency",
+      "body": "Your card supports overseas usage where its network is accepted. Overseas usage must be enabled and the card must be active. Foreign currency conversion fee: 2.5% on the converted amount; the final rate depends on settlement. Review the currency and total shown by the merchant before paying.",
+      "approved": true,
+      "published": "10 Sep 2026"
+    },
+    {
+      "id": "KB-002",
+      "title": "Fee reversal requests",
+      "keywords": "fee,reversal,annual",
+      "body": "Annual card fee reversals require review. Submitting a request does not refund the fee. Review target: 3 working days.",
+      "approved": true,
+      "published": "10 Sep 2026"
+    }
+  ]
+}

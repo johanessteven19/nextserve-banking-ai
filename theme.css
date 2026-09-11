@@ -1,0 +1,56 @@
+/* DBS-inspired concept palette; not an official brand asset or stylesheet. */
+:root { --brand-red:#c8102e; --ink:#202124; --line:#e3e3e5; }
+html, body, [class*="css"] { font-family:Arial,'Segoe UI',sans-serif; }
+.stApp { background:#f5f5f5; color:var(--ink); }
+.block-container { padding-top:2rem; max-width:1740px; }
+.st-key-mobile_app { width:100%; max-width:440px; margin:16px auto; padding:14px 14px 6px; border:7px solid #242424; border-radius:38px; background:#fff; box-shadow:0 12px 35px #0002; overflow:hidden; }
+.mobile-status { display:flex; justify-content:space-between; padding:0 10px; font-size:12px; font-weight:700; }
+.mobile-brand { display:flex; align-items:center; gap:10px; padding:10px 8px; border-bottom:1px solid #eee; }
+.mobile-brand strong { color:#c8102e; font-size:28px; }
+.mobile-brand span { font-size:21px; }
+.mobile-home-indicator { background:#242424; height:4px; width:110px; border-radius:5px; margin:8px auto 2px; }
+[class*="st-key-mobile_screen_"] { background:#f6f6f6; padding:10px; }
+.st-key-mobile_app [class*="st-key-view_TX-"] button { text-align:left; justify-content:flex-start; padding:12px 14px; border-radius:10px; background:white; border-color:#e8e8e8; }
+.st-key-mobile_app [class*="st-key-view_TX-"] button p { font-size:14px; line-height:1.45; }
+.st-key-mobile_app [data-testid="stExpander"] { background:#fff; border-radius:8px; }
+.st-key-mobile_app h1 { font-size:25px; line-height:1.2; }
+.st-key-mobile_app h2 { font-size:21px; }
+.st-key-mobile_app h3 { font-size:18px; }
+.st-key-mobile_app h4 { font-size:16px; }
+.st-key-mobile_app p { overflow-wrap:anywhere; }
+.st-key-mobile_app .stButton button { width:100%; min-height:44px; }
+.st-key-mobile_app .bank-card { padding:18px; }
+h1,h2,h3,h4 { color:var(--ink); letter-spacing:-.025em; font-weight:700; }
+[data-testid="stSidebar"] { background:#fff; border-right:1px solid var(--line); }
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] { border-top:6px solid var(--brand-red); }
+.brand { display:flex; align-items:center; gap:14px; padding:10px 0 8px; }
+.brand-name { color:var(--brand-red); font-size:32px; font-weight:800; letter-spacing:-1px; }
+.brand-divider { width:1px; height:28px; background:#c9c9cb; }
+.brand-product { color:#242424; font-size:20px; font-weight:600; }
+[data-testid="stSidebar"] [role="radiogroup"] { gap:6px; }
+[data-testid="stSidebar"] [role="radiogroup"] label { border-radius:6px; padding:10px 8px; }
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background:#fff0f2; }
+[data-testid="stVerticalBlockBorderWrapper"] { border-radius:10px; background:#fff; }
+.hero { padding:22px 28px; border-radius:4px; border-left:5px solid var(--brand-red); background:#242424; color:#fff; margin-bottom:22px; }
+.hero h1 { color:#fff; font-size:clamp(1.8rem,3vw,2.4rem); margin:6px 0; line-height:1.15; }
+.eyebrow { font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; }
+.hero p { color:#e4e4e4; margin:0; line-height:1.5; }
+.bank-card { background:linear-gradient(115deg,#9e0921 0%,#c8102e 65%,#db1637 100%); border-radius:12px; padding:24px; color:#fff; margin:10px 0 22px; box-shadow:0 8px 20px #7d00121a; }
+.card-top,.card-bottom { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.card-top span { font-size:14px; }
+.card-top strong { font-size:26px; letter-spacing:-.04em; }
+.balance { font-size:clamp(1.5rem,2.4vw,2rem); font-weight:700; margin:20px 0 4px; font-variant-numeric:tabular-nums; }
+.bank-card small { color:#fff; font-size:13px; }
+.card-bottom { margin-top:28px; font-size:13px; letter-spacing:.05em; }
+[data-testid="stMetric"] { background:#fff; border:1px solid var(--line); border-top:3px solid var(--brand-red); border-radius:6px; padding:20px; }
+[data-testid="stMetricValue"] { color:#242424; font-variant-numeric:tabular-nums; }
+.stButton button,.stDownloadButton button { border-radius:6px; min-height:44px; font-weight:600; }
+.stButton button[kind="secondary"],.stDownloadButton button { background:#fff; border:1px solid #c9c9cb; color:#252525; }
+.stButton button[kind="secondary"]:hover { border-color:var(--brand-red); color:var(--brand-red); background:#fff7f8; }
+.stButton button[kind="primary"] { background:var(--brand-red); border-color:var(--brand-red); color:#fff; }
+.stButton button:disabled { opacity:.45; }
+button:focus-visible,input:focus-visible,textarea:focus-visible { outline:2px solid var(--brand-red); outline-offset:3px; }
+[data-testid="stChatMessage"] { background:#f5f5f5; border-radius:8px; border-left:3px solid #dedee0; }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) { background:#fff5f6; border-left-color:var(--brand-red); }
+[data-testid="stChatInput"] { border-radius:8px; border-color:#c9c9cb; }
+@media(max-width:640px) { .block-container { padding:1rem; } .hero { padding:18px; } .bank-card { padding:20px; } }
